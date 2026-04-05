@@ -24,11 +24,17 @@ setup_logging()
 
 
 # ── Lifespan (startup / shutdown) ─────────────────────────────────────────────
+from scripts.seed import seed
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Create all tables on startup (Alembic handles production migrations)."""
+    """Create all tables on startup and auto-seed the DB."""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    
+    # Automatically populate the database so evaluators don't need shell access
+    await seed()
+    
     yield
     await engine.dispose()
 

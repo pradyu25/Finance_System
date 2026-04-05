@@ -159,10 +159,8 @@ cd Finance-Intelligence-System
 docker compose build
 docker compose up -d
 
-# 3. Load sample data (3 users + ~300 transactions across 12 months)
-docker compose exec api python scripts/seed.py
-
-# 4. Open the interactive API docs
+# 3. Open the interactive API docs
+#    The database automatically seeds itself with users and realistic data on startup!
 #    http://localhost:8000/docs
 ```
 
@@ -192,10 +190,7 @@ pip install -r requirements.txt
 # 3. The .env file is already configured for SQLite out of the box
 #    No changes needed for local evaluation
 
-# 4. Load sample data
-python scripts/seed.py
-
-# 5. Start the server
+# 4. Start the server (Database will auto-seed realistic test data on startup)
 uvicorn main:app --reload
 
 # API:       http://localhost:8000
