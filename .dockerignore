@@ -1,0 +1,17 @@
+# Exclude files from the Docker build context to keep the image lean
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.db
+*.sqlite
+logs/
+.env
+.git/
+.gitignore
+*.md
+Dockerfile
+docker-compose*.yml
+.DS_Store
+Thumbs.db

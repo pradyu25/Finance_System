@@ -1,0 +1,35 @@
+services:
+  api:
+    build: .
+    container_name: finance_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - finance_db:/app/data
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/finance.db
+    restart: unless-stopped
+
+  # Uncomment to switch to PostgreSQL
+  # db:
+  #   image: postgres:16-alpine
+  #   container_name: finance_postgres
+  #   environment:
+  #     POSTGRES_USER: finance
+  #     POSTGRES_PASSWORD: finance_pass
+  #     POSTGRES_DB: finance_db
+  #   volumes:
+  #     - pg_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U finance"]
+  #     interval: 10s
+  #     retries: 5
+
+volumes:
+  finance_db:
+  # pg_data:
